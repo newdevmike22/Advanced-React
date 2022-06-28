@@ -1,7 +1,9 @@
+import UseStateBasics from "./tutorial/1-useState/useState-basics";
+
 const App = () => {
   return (
     <div className="container">
-      <h2>advanced react</h2>
+      <UseStateBasics />
     </div>
   )
 }
