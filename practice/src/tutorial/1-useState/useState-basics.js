@@ -1,21 +1,27 @@
 import { useState } from "react";
+import data from "../../data";
 
 const UseStateBasics = () => {
-    const [name, setName] = useState("Megatron");
-    const handleClick = () => {
-        if (name === "Megatron") {
-            setName("Optimus Prime")
-        } else {
-            setName("Megatron")
-        }
+    const [people, setPeople] = useState(data);
+
+    const removeItem = (id) => {
+        let newPeople = people.filter((person) => person.id !== id)
+        setPeople(newPeople)
     }
 
     return (
-        <div>
-            <h1>useState basic Example</h1><br/>
-            <h2>{name}</h2>
-            <button className="btn" onClick={handleClick}>Change Name</button>
-        </div>
+        <>
+            {people.map((person) => {
+                const {id, name} = person;
+                return <div key={id} className="item">
+                    <h4>{name}</h4>
+                    <button onClick={() => removeItem(id)}>Remove Item</button>
+                </div>
+            })}
+            <button className="btn" onClick={() => setPeople([])}>
+                Clear Items
+            </button>
+        </>
     )
 }
 
