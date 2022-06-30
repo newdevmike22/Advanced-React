@@ -319,3 +319,7 @@ p {
   text-transform: capitalize;
   cursor: pointer;
 }
+
+.counter {
+  margin: 4rem 0;
+}
