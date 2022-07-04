@@ -8,7 +8,11 @@ const UseEffect = () => {
         if(value >= 1) {
             document.title = `New Messages(${value})`;
         }
-    });
+    },[value]);
+
+    useEffect(() => {
+        console.log("Hola amigos!");
+    },[]);
 
     console.log("Render Component");
     return (
