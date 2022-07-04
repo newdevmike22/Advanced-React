@@ -1,9 +1,9 @@
-import Counter from "./tutorial/1-useState/useState-counter";
+import UseEffect from "./tutorial/2-useEffect/useEffect-basics";
 
 const App = () => {
   return (
     <div className="container">
-      <Counter />
+      <UseEffect />
     </div>
   )
 }
