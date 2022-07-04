@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
 
 const UseEffect = () => {
-    const [value, setValue] = useState(0);
-    
-    useEffect(() => {
-        console.log("Call useEffect!");
-        if(value >= 1) {
-            document.title = `New Messages(${value})`;
-        }
-    },[value]);
+    const [size, setSize] = useState(window.innerWidth);
+
+    const checkSize = () => {
+        setSize(window.innerWidth)
+    }
 
     useEffect(() => {
-        console.log("Hola amigos!");
-    },[]);
-
-    console.log("Render Component");
+        console.log("useEffect");
+        window.addEventListener("resize", checkSize);
+        //return () => {
+        //   console.log("Cleanup");
+        //   window.removeEventListener("resize", checkSize);
+        //};
+    }, []);
+    console.log("render");
     return (
         <div>
-            <h1>{value}</h1>
-            <button className="btn" onClick={() => setValue(value + 1)}>Click Me</button>
+            <h1>Window</h1>
+            <h2>{size} PX</h2>
         </div>
     )
 }
