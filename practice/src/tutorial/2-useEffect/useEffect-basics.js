@@ -1,35 +1,46 @@
 import { useState, useEffect } from "react";
 
-const url = "https://api.github.com/users"
-
+const url = "https://api.github.com/users/QuincyLarson";
+ 
 const UseEffect = () => {
-    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [user, setUser] = useState("default user");
 
-    const getUsers = async () => {
-        const response = await fetch(url);
-        const users = await response.json();
-        setUsers(users);
+    useEffect (() => {
+        fetch(url)
+        .then((resp) => {
+            if(resp.status >= 200 && resp.status <= 299) {
+                return resp.json()
+            } else {
+                setLoading(false);
+                setIsError(true);
+                throw new Error(resp.statusText);
+            }
+        })
+        .then((user) => {
+            const {login} = user;
+            setUser(login);
+            setLoading(false);
+        })
+        .catch(error => console.log(error));
+    }, []);
+
+    if(loading) {
+        return <div>
+            <h2>Loading...</h2>
+        </div>
+    };
+
+    if(isError) {
+        return <div>
+            <h2>Error...</h2>
+        </div>
     }
-    useEffect(() => {
-        getUsers();
-    },[])
 
     return (
         <div>
-            <h1>Github Users</h1>
-            <ul className="users">
-
-            {users.map((user) => {
-                const {id, login, avatar_url, html_url} = user
-                return <li key={id}>
-                    <img src={avatar_url} alt={login}/>
-                    <div>
-                        <h3>{login}</h3>
-                        <a href={html_url}>profile</a>
-                    </div>
-                </li>
-            })}
-            </ul>
+            <h1>{user}</h1>
         </div>
     )
 }
